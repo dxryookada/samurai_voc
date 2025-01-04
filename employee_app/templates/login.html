@@ -1,4 +1,4 @@
-{% extends 'base_general.html' %}
+{% extends 'base_login.html' %}
 {% load static %}
 {% block title %}ログイン{% endblock title %}
 
@@ -7,18 +7,26 @@
   <h2>お客様の声アプリ</h2>
   <p class="mb-4">Voice of the Customer App</p>
 
-  <!-- フラッシュメッセージ -->
+  <!-- フラッシュメッセージ
   <section class="p-4 my-4 text-center border border-success bg-success-subtle">
     <p class="fw-bold">ログアウトしました</p>
   </section>
   <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
     <p class="fw-bold">ユーザー名またはパスワードに誤りがあります</p>
   </section>
+  -->
+  {% if messages %}
+  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
+    {% for message in messages %}
+    <p class="fw-bold alert alert-{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  </section>
+  {% endif %}
 
   <!-- ログイン -->
   <section class="p-4 mb-2 border border-secondary shadow bg-body-tertiary rounded">
     <h3 class="mb-3">ログイン</h3>
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'employee' %}">
       {% csrf_token %}
       <div id="login-form" class="mb-2">
         <label for="username">メールアドレス</label>

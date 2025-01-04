@@ -67,10 +67,22 @@ header {
 header > nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 header > nav > ul {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+header form {
+  display: inline;
+}
+header button {
+  text-decoration: none !important;
+  color: white !important;
+}
+header button:hover {
+  text-decoration: underline !important;
 }
 header a {
   color: white;
@@ -84,7 +96,7 @@ textarea {
 /* --- 一般ユーザーページ --- */
 #period {
   display: grid;
-  grid-template-columns: 20% repeat(2, 1fr);
+  grid-template-columns: 20% repeat(2, 1fr) 20%;
   align-items: center;
   gap: 1rem;
 }

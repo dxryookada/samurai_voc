@@ -4,13 +4,14 @@
 
 {% block content %}
 <article class="p-2 m-auto">
-  <h2>お客様の声アプリ 従業員ページ【山田太郎さん】</h2>
+  <h2>お客様の声アプリ 従業員ページ【{{ user_name }}さん】</h2>
   <p>Voice of the Customer App Employee Page</p>
 
-  <!-- フラッシュメッセージ -->
+  <!-- フラッシュメッセージ
   <section class="p-4 mt-4 text-center border border-danger bg-danger-subtle">
     <p class="fw-bold">従業員情報表示に失敗しました</p>
   </section>
+  -->
 
   <!-- 表示期間 -->
   <section id="period" class="py-4">
@@ -34,15 +35,16 @@
       <option value="11">11月</option>
       <option value="12">12月</option>
     </select>
+    <button type="submit" class="btn btn-secondary">表示</button>
   </section>
 
   <!-- 表彰回数 -->
   <section id="commendation" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
-    <h3 class="mb-4">山田太郎さんの表彰回数（2024年度）</h3>
+    <h3 class="mb-4">{{ user_name }}さんの表彰回数（2024年度）</h3>
     <ul>
-      <li><span>★</span> 1回</li>
-      <li><span>★</span> 2回</li>
-      <li><span>★</span> 3回</li>
+      <li><span>★</span> {{ award_counts.gold }}回</li>
+      <li><span>★</span> {{ award_counts.silver }}回</li>
+      <li><span>★</span> {{ award_counts.copper }}回</li>
     </ul>
   </section>
 

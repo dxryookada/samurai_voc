@@ -22,7 +22,12 @@
       <ul>
         <li><a href="{% url 'update' %}">マイページ</a></li>
         <li><a href="{% url 'admin' %}">管理者ページ</a></li>
-        <li><a href="{% url 'login' %}">ログアウト</a></li>
+        <li>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="p-0 btn btn-link">ログアウト</button>
+          </form>
+        </li>
       </ul>
     </nav>
   </header>

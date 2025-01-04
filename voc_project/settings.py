@@ -142,6 +142,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'employee_app.CustomUser'
 
 # ログイン認証
-LOGIN_URL = '/login/'
+LOGIN_URL = '/employee/'
 LOGIN_REDIRECT_URL = '/general/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/employee/'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# メッセージのレベルを定義
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',  # Bootstrapのクラスに合わせる場合
+}
