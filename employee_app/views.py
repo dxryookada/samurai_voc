@@ -7,12 +7,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # --- ログインページ
 class LoginView(LoginView):
   template_name = "login.html"
+  redirect_authenticated_user = True 
 
   def get_success_url(self):
     if self.request.user.is_staff:
       return reverse_lazy('admin')
-    else:
-      return reverse_lazy('general')
+    return reverse_lazy('general')
 
 # --- 一般従業員ページ（トップ）
 class GeneralView(LoginRequiredMixin, TemplateView):
