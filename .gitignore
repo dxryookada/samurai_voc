@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-# Django
-*.log
-*.pot
-*.pyc
-__pycache__
-db.sqlite3
-=======
 .DS_Store
 *.log
 *.pot
 *.pyc
 **/__pycache__/
->>>>>>> main
