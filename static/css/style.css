@@ -154,6 +154,13 @@ textarea {
 }
 
 /* --- 管理者ページ --- */
+#csv-file fieldset {
+  display: grid;
+  grid-template-columns: 20% 1fr 10%;
+  gap: 1rem;
+  align-items: center;
+}
+
 #employee-name {
   display: grid;
   grid-template-columns: 20% repeat(3, 1fr);

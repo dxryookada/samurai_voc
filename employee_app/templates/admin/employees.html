@@ -1,0 +1,22 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+{% block title %}表彰状贈呈一覧・回数集計{% endblock title %}
+
+{% block content %}
+    <article class="p-2 m-auto">
+      <h2 class="mb-4">お客様の声アプリ 従業員一覧</h2>
+    
+      <!-- フラッシュメッセージ -->
+      <section class="p-4 mb-4 text-center border border-danger bg-danger-subtle">
+        <p class="fw-bold">従業員情報表示に失敗しました</p>
+      </section>
+
+      <!-- 従業員情報 -->
+      <section id="employee-list" class="totalling p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+        <div>id</div><div>従業員ID</div><div>従業員名</div><div>エリア</div><div>権限</div><div>メールアドレス</div><div></div>
+        <div>1</div><div>11111111</div><div>山田太郎</div><div>中央</div><div>管理者</div><div>aaa@aaa.aaa</div><div><a href="{% url 'detail' %}" class="btn btn-primary">詳細・編集</a></div>
+        <div>1</div><div>11111111</div><div>山田太郎</div><div>中央</div><div>管理者</div><div>aaa@aaa.aaa</div><div><a href="{% url 'detail' %}" class="btn btn-primary">詳細・編集</a></div>
+      </section>
+    </article>
+    <!-- ここまでcontentブロック -->
+{% endblock content %}

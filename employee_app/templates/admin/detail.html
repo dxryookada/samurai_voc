@@ -1,35 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お客様の声アプリ | 従業員情報更新ページ</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
+{% extends 'base_admin.html' %}
+{% load static %}
+{% block title %}表彰状贈呈一覧・回数集計{% endblock title %}
 
-  <!-- ヘッダー -->
-  <header class="mb-4 px-4 py-2">
-    <!-- ナビメニュー -->
-    <nav>
-      <ul>
-        <li><a href="#">TGNW株式会社</a></li>
-        <li>お客様の声アプリ</li>
-        <li><a href="admin.html">管理者ページ</a></li>
-      </ul>
-      <ul>
-        <li><a href="voice.html">お客様の声一覧</a></li>
-        <li><a href="awards.html">表彰状贈呈一覧</a></li>
-        <li><a href="employee.html">従業員一覧</a></li>
-        <li><a href="login.html">ログアウト</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- メイン -->
-  <main class="container m-auto">
-    <!-- ここからcontentブロック -->
+{% block content %}
     <article class="p-2 m-auto">
       <h2>お客様の声アプリ 従業員情報更新ページ</h2>
       <p class="mb-4">Voice of the Customer App Employee information update Page</p>
@@ -78,14 +51,4 @@
         </form>
       </section>
     </article>
-    <!-- ここまでcontentブロック -->
-  </main>
-
-  <!-- フッター -->
-  <footer class="p-2 text-center">
-    <p>© Copyright 2024 TGNW Inc.</p>
-  </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock content %}

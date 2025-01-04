@@ -17,11 +17,13 @@
       <ul>
         <li><a href="https://www.tokyo-gas.co.jp/network/index.html" target="_blank">TGNW株式会社</a></li>
         <li>お客様の声アプリ</li>
-        <li><a href="{% url 'general' %}">従業員ページ</a></li>
+        <li><a href="{% url 'admin' %}">管理者ページ</a></li>
       </ul>
       <ul>
-        <li><a href="{% url 'update' %}">マイページ</a></li>
-        <li><a href="{% url 'admin' %}">管理者ページ</a></li>
+        <li><a href="{% url 'voices' %}">お客様の声</a></li>
+        <li><a href="{% url 'awards' %}">表彰状贈呈</a></li>
+        <li><a href="{% url 'employees' %}">従業員一覧</a></li>
+        <li><a href="{% url 'general' %}">一般ページ</a></li>
         <li><a href="{% url 'login' %}">ログアウト</a></li>
       </ul>
     </nav>

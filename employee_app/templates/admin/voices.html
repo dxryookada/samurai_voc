@@ -1,0 +1,28 @@
+{% extends 'base_admin.html' %}
+{% load static %}
+{% block title %}表彰状贈呈一覧・回数集計{% endblock title %}
+
+{% block content %}
+    <article class="p-2 m-auto">
+      <h2 class="mb-4">お客様の声アプリ お客様の声一覧</h2>
+    
+      <!-- フラッシュメッセージ -->
+      <section class="p-4 mb-4 text-center border border-danger bg-danger-subtle">
+        <p class="fw-bold">お客様の声一覧表示に失敗しました</p>
+      </section>
+
+      <!-- お客様の声一覧 -->
+      <section id="voice-list" class="totalling p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+        <div>作業日</div><div>工事番号</div><div>作業者</div><div>自由記述内容</div>
+        <div>2024年9月2日</div><div>0022</div>
+        <div>
+          <ul>
+            <li>山田太郎</li>
+            <li>鈴木次郎</li>
+            <li>佐藤三郎</li>
+          </ul>
+        </div>
+        <div>修理をしていただいてありがとうございます。</div>
+      </section>
+    </article>
+{% endblock content %}

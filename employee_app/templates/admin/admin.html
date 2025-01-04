@@ -1,85 +1,80 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お客様の声アプリ | 管理者ページ</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
+{% extends 'base_admin.html' %}
+{% load static %}
+{% block title %}管理者ページ{% endblock title %}
 
-  <!-- ヘッダー -->
-  <header class="mb-4 px-4 py-2">
-    <!-- ナビメニュー -->
-    <nav>
-      <ul>
-        <li><a href="#">TGNW株式会社</a></li>
-        <li>お客様の声アプリ</li>
-        <li><a href="admin.html">管理者ページ</a></li>
-      </ul>
-      <ul>
-        <li><a href="voice.html">お客様の声一覧</a></li>
-        <li><a href="awards.html">表彰状贈呈一覧</a></li>
-        <li><a href="employee.html">従業員一覧</a></li>
-        <li><a href="login.html">ログアウト</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- メイン -->
-  <main class="container m-auto">
-    <!-- ここからcontentブロック -->
+{% block content %}
     <article class="p-2 m-auto">
-      <h2>お客様の声アプリ 管理者ページ</h2>
-      <p class="mb-4">以下のフォームから従業員名と表示期間を選択してください</p>
+      <h2 class="mb-4">お客様の声アプリ 管理者ページ</h2>
 
-      <!-- 従業員情報 -->
-      <section id="employee-name" class="mb-2">
-        <h3>従業員名</h3>
-        <select name="" id="" class="form-select">
-          <option value="2022" selected> --- 選択してください --- </option>
-          <option value="2022">山田太郎</option>
-          <option value="2023">佐藤次郎</option>
-          <option value="2024">鈴木三郎</option>
-        </select>
-        <div class="px-4 py-2 bg-secondary-subtle">
-          <p>権限名</p>
-        </div>
-        <button type="submit" class="btn btn-secondary">情報表示</button>
-      </section>
-      
-      <!-- 表示期間 -->
-      <section id="period" class="py-4">
-        <h3>表示期間</h3>
-        <select name="" id="" class="form-select">
-          <option value="2022">2022年度</option>
-          <option value="2023">2023年度</option>
-          <option value="2024" selected>2024年度</option>
-        </select>
-        <select name="" id="" class="form-select">
-          <option value="1" selected>1月</option>
-          <option value="2">2月</option>
-          <option value="3">3月</option>
-          <option value="4">4月</option>
-          <option value="5">5月</option>
-          <option value="6">6月</option>
-          <option value="7">7月</option>
-          <option value="8">8月</option>
-          <option value="9">9月</option>
-          <option value="10">10月</option>
-          <option value="11">11月</option>
-          <option value="12">12月</option>
-        </select>
-      </section>
-
-      <!-- フラッシュメッセージ -->
-      <section class="p-4 mb-4 text-center border border-danger bg-danger-subtle">
-        <p class="fw-bold">従業員情報表示に失敗しました</p>
+      <!-- CSVファイルデータ取得 -->
+      <section id="csv-file" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+        <h3>CSVファイルデータ取得</h3>
+        <form action="" method="post">
+          <fieldset class="my-4">
+            <div>工事データ取得</div>
+            <div><input type="file" name="" id="" class="form-control"></div>
+            <div><button type="submit" class="btn btn-secondary">取得</button></div>
+          </fieldset>
+        </form>
+        <form action="" method="post">
+          <fieldset>
+            <div>従業員データ取得</div>
+            <div><input type="file" name="" id="" class="form-control"></div>
+            <div><button type="submit" class="btn btn-secondary">取得</button></div>
+          </fieldset>
+        </form>
       </section>
 
       <!-- アンケート集計(個別) -->
       <section class="totalling p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+        <h3>従業員アンケート集計</h3>
+        <p class="mb-4 pb-4 border-bottom border-secondary">以下のフォームから従業員名と表示期間を選択してください。</p>
+        
+        <!-- 従業員情報 -->
+        <fieldset id="employee-name">
+          <h3>従業員名</h3>
+          <select name="" id="" class="form-select">
+            <option value="2022" selected> --- 選択してください --- </option>
+            <option value="2022">山田太郎</option>
+            <option value="2023">佐藤次郎</option>
+            <option value="2024">鈴木三郎</option>
+          </select>
+          <div class="px-4 bg-secondary-subtle">
+            <p>権限名</p>
+          </div>
+          <button type="submit" class="btn btn-secondary">情報表示</button>
+        </fieldset>
+      
+        <!-- 表示期間 -->
+        <fieldset id="period" class="mb-4 py-4 border-bottom border-secondary">
+          <h3>表示期間</h3>
+          <select name="" id="" class="form-select">
+            <option value="2022">2022年度</option>
+            <option value="2023">2023年度</option>
+            <option value="2024" selected>2024年度</option>
+          </select>
+          <select name="" id="" class="form-select">
+            <option value="1" selected>1月</option>
+            <option value="2">2月</option>
+            <option value="3">3月</option>
+            <option value="4">4月</option>
+            <option value="5">5月</option>
+            <option value="6">6月</option>
+            <option value="7">7月</option>
+            <option value="8">8月</option>
+            <option value="9">9月</option>
+            <option value="10">10月</option>
+            <option value="11">11月</option>
+            <option value="12">12月</option>
+          </select>
+        </fieldset>
+
+        <!-- フラッシュメッセージ -->
+        <section class="p-4 mb-4 text-center border border-danger bg-danger-subtle">
+          <p class="fw-bold">従業員情報表示に失敗しました</p>
+        </section>
+        
+        <!-- アンケート結果 -->
         <h3 class="mb-4">2024年1月 山田太郎様のアンケート集計</h3>
         <fieldset class="mb-4">
           <input type="radio" name="age" id="" class="form-check-input">
@@ -245,7 +240,7 @@
         <div class="mb-4">
           <h3>年代別集計・グラフ</h3>
           <fieldset class="mb-4">
-            <label for="">表示期間：</label>
+            <label for="">表示年代：</label>
             <select name="" id="" class="form-select">
               <option value="10" selected>〜10代</option>
               <option value="20">20代</option>
@@ -306,14 +301,4 @@
 
       </section>
     </article>
-    <!-- ここまでcontentブロック -->
-  </main>
-
-  <!-- フッター -->
-  <footer class="p-2 text-center">
-    <p>© Copyright 2024 TGNW Inc.</p>
-  </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock content %}

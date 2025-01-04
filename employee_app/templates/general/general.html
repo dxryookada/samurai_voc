@@ -1,0 +1,128 @@
+{% extends 'base_employee.html' %}
+{% load static %}
+{% block title %}従業員ページ{% endblock title %}
+
+{% block content %}
+<article class="p-2 m-auto">
+  <h2>お客様の声アプリ 従業員ページ【山田太郎さん】</h2>
+  <p>Voice of the Customer App Employee Page</p>
+
+  <!-- フラッシュメッセージ -->
+  <section class="p-4 mt-4 text-center border border-danger bg-danger-subtle">
+    <p class="fw-bold">従業員情報表示に失敗しました</p>
+  </section>
+
+  <!-- 表示期間 -->
+  <section id="period" class="py-4">
+    <h3>表示期間</h3>
+    <select name="" id="" class="form-select">
+      <option value="2022">2022年度</option>
+      <option value="2023">2023年度</option>
+      <option value="2024" selected>2024年度</option>
+    </select>
+    <select name="" id="" class="form-select">
+      <option value="1" selected>1月</option>
+      <option value="2">2月</option>
+      <option value="3">3月</option>
+      <option value="4">4月</option>
+      <option value="5">5月</option>
+      <option value="6">6月</option>
+      <option value="7">7月</option>
+      <option value="8">8月</option>
+      <option value="9">9月</option>
+      <option value="10">10月</option>
+      <option value="11">11月</option>
+      <option value="12">12月</option>
+    </select>
+  </section>
+
+  <!-- 表彰回数 -->
+  <section id="commendation" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+    <h3 class="mb-4">山田太郎さんの表彰回数（2024年度）</h3>
+    <ul>
+      <li><span>★</span> 1回</li>
+      <li><span>★</span> 2回</li>
+      <li><span>★</span> 3回</li>
+    </ul>
+  </section>
+
+  <!-- アンケート集計 -->
+  <section class="totalling p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+    <h3 class="mb-4">2024年1月 アンケート集計</h3>
+    <fieldset class="mb-4">
+      <input type="radio" name="age" id="" class="form-check-input">
+      <label for="">10代以下</label class="form-check-label">
+      <input type="radio" name="age" id="" class="form-check-input">
+      <label for="">20～30代</label class="form-check-label">
+      <input type="radio" name="age" id="" class="form-check-input">
+      <label for="">40～50代</label class="form-check-label">
+      <input type="radio" name="age" id="" class="form-check-input">
+      <label for="">60～70代</label class="form-check-label">
+      <input type="radio" name="age" id="" class="form-check-input">
+      <label for="">80代以上</label class="form-check-label">
+      <input type="radio" name="age" id=""  class="form-check-input" checked>
+      <label for="">全ての年代</label class="form-check-label">
+    </fieldset>
+    <output>
+      <ul>
+        <li>お伺いした作業者は、お客様のお申し出内容について確認しましたか？-----</li>
+        <li>作業する内容・費用について、事前の説明はわかりやすかったですか？-----</li>
+        <li>作業終了後の結果説明は、わかりやすかったですか？----------------------</li>
+        <li>作業者の身だしなみは、いかがでしたか？---------------------------------</li>
+        <li>態度・言葉遣いは、いかがでしたか？-------------------------------------</li>
+        <li>自由記述欄AI評価---------------------------------------------------------</li>
+      </ul>
+      <figure>
+      </figure>
+    </output>
+  </section>
+
+  <!-- AIアドバイス -->
+  <section id="advice" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+    <h3 class="mb-4">AIアドバイス</h3>
+    <details>
+      <summary>表示する</summary>
+        作業については、お客様から高評価を頂いているようで
+        す。作業の前のあいさつを笑顔で行うと、より良い印象が与えら
+        れますので、意識してお客様対応をしましょう。
+    </details>
+  </section>
+
+  <!-- アンケート上位 -->
+  <section id="ranking" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+    <nav class="mb-3">
+      <h3>2024年1月 アンケート TOP3</h3>
+      <p>▼ お名前をクリックするとグラフ表示されます</p>
+    </nav>
+    <output>
+      <ul>
+        <li>
+          <span>★</span>
+          <span>No.1</span>
+          <span>東京</span>
+          <span>太郎さん</span>
+        </li>
+        <li>
+          <span>★</span>
+          <span>No.2</span>
+          <span>埼玉</span>
+          <span>次郎さん</span>
+        </li>
+        <li>
+          <span>★</span>
+          <span>No.3</span>
+          <span>埼玉</span>
+          <span>三郎さん</span>
+        </li>
+      </ul>
+      <div>
+        <span>★</span>
+        <span>No.1</span>
+        <span>東京</span>
+        <span>太郎さん</span>
+        <figure></figure>
+      </div>
+    </output>
+  </section>
+</article>
+{% endblock content %}

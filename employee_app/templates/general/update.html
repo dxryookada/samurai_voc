@@ -1,83 +1,48 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お客様の声アプリ | 従業員情報更新ページ</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+{% extends 'base_employee.html' %}
+{% load static %}
+{% block title %}従業員情報更新ページ{% endblock title %}
 
-  <!-- ヘッダー -->
-  <header class="mb-4 px-4 py-2">
-    <!-- ナビメニュー -->
-    <nav>
-      <ul>
-        <li><a href="#">TGNW株式会社</a></li>
-        <li>お客様の声アプリ</li>
-        <li>従業員情報更新ページ</li>
-      </ul>
-      <ul>
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="login.html">ログアウト</a></li>
-      </ul>
-    </nav>
-  </header>
+{% block content %}
+<article class="p-2 m-auto">
+  <h2>お客様の声アプリ 従業員情報更新ページ</h2>
+  <p class="mb-4">Voice of the Customer App Employee information update Page</p>
 
-  <!-- メイン -->
-  <main class="container m-auto">
-    <!-- ここからcontentブロック -->
-    <article class="p-2 m-auto">
-      <h2>お客様の声アプリ 従業員情報更新ページ</h2>
-      <p class="mb-4">Voice of the Customer App Employee information update Page</p>
+  <!-- フラッシュメッセージ -->
+  <section class="p-4 my-4 text-center border border-success bg-success-subtle">
+    <p class="fw-bold">従業員情報を更新しました</p>
+  </section>
+  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
+    <p class="fw-bold">従業員情報更新に失敗しました</p>
+  </section>
 
-      <!-- フラッシュメッセージ -->
-      <section class="p-4 my-4 text-center border border-success bg-success-subtle">
-        <p class="fw-bold">従業員情報を更新しました</p>
-      </section>
-      <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
-        <p class="fw-bold">従業員情報更新に失敗しました</p>
-      </section>
-
-      <!-- 従業員情報更新 -->
-      <section id="update" class="w-75 m-auto p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
-        <h3 class="mb-4">従業員情報更新</h3>
-        <form action="update.html" method="post">
-          <fieldset class="mb-4">
-            <label for="id" class="bg-primary-subtle form-label">従業員ID</label>
-            <input type="text" name="id" id="id" class="form-control">
-            <label for="user_name" class="bg-primary-subtle form-label">従業員名</label>
-            <input type="text" name="user_name" id="user_name" class="form-control">
-            <label for="area" class="bg-primary-subtle form-label">エリア</label>
-            <select name="area" id="area" class="form-select">
-              <option value="中央">中央</option>
-              <option value="北部">北部</option>
-              <option value="西部">西部</option>
-              <option value="東部">東部</option>
-              <option value="神奈川">神奈川</option>
-            </select>
-            <label for="email" class="bg-primary-subtle form-label">メールアドレス</label>
-            <input type="email" name="email" id="email" class="form-control">
-            <label for="" class="bg-primary-subtle form-label">パスワード</label>
-            <input type="password" name="" id="" class="form-control">
-            <label for="" class="bg-primary-subtle form-label">パスワード（確認）</label>
-            <input type="password" name="" id="" class="form-control">
-          </fieldset>
-          <div class=" text-center">
-            <button type="submit" class="btn btn-secondary">更新する</button>
-          </div>
-        </form>
-      </section>
-    </article>
-    <!-- ここまでcontentブロック -->
-  </main>
-
-  <!-- フッター -->
-  <footer class="p-2 text-center">
-    <p>© Copyright 2024 TGNW Inc.</p>
-  </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+  <!-- 従業員情報更新 -->
+  <section id="update" class="w-75 m-auto p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+    <h3 class="mb-4">従業員情報更新</h3>
+    <form action="update.html" method="post">
+      <fieldset class="mb-4">
+        <label for="id" class="bg-primary-subtle form-label">従業員ID</label>
+        <input type="text" name="id" id="id" class="form-control">
+        <label for="user_name" class="bg-primary-subtle form-label">従業員名</label>
+        <input type="text" name="user_name" id="user_name" class="form-control">
+        <label for="area" class="bg-primary-subtle form-label">エリア</label>
+        <select name="area" id="area" class="form-select">
+          <option value="中央">中央</option>
+          <option value="北部">北部</option>
+          <option value="西部">西部</option>
+          <option value="東部">東部</option>
+          <option value="神奈川">神奈川</option>
+        </select>
+        <label for="email" class="bg-primary-subtle form-label">メールアドレス</label>
+        <input type="email" name="email" id="email" class="form-control">
+        <label for="" class="bg-primary-subtle form-label">パスワード</label>
+        <input type="password" name="" id="" class="form-control">
+        <label for="" class="bg-primary-subtle form-label">パスワード（確認）</label>
+        <input type="password" name="" id="" class="form-control">
+      </fieldset>
+      <div class=" text-center">
+        <button type="submit" class="btn btn-secondary">更新する</button>
+      </div>
+    </form>
+  </section>
+</article>
+{% endblock content %}
