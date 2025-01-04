@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -139,3 +140,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'employee_app.CustomUser'
+
+# ログイン認証
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/general/'
+LOGOUT_REDIRECT_URL = '/login/'

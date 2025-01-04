@@ -1,4 +1,4 @@
-{% extends 'base_employee.html' %}
+{% extends 'base_general.html' %}
 {% load static %}
 {% block title %}ログイン{% endblock title %}
 
@@ -6,20 +6,35 @@
 <article class="w-50 p-2 m-auto">
   <h2>お客様の声アプリ</h2>
   <p class="mb-4">Voice of the Customer App</p>
+
+  <!-- フラッシュメッセージ -->
+  <section class="p-4 my-4 text-center border border-success bg-success-subtle">
+    <p class="fw-bold">ログアウトしました</p>
+  </section>
+  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
+    <p class="fw-bold">ユーザー名またはパスワードに誤りがあります</p>
+  </section>
+
   <!-- ログイン -->
-  <section class="p-4 border border-secondary shadow bg-body-tertiary rounded">
+  <section class="p-4 mb-2 border border-secondary shadow bg-body-tertiary rounded">
     <h3 class="mb-3">ログイン</h3>
-    <form action="{ url 'general' }" method="get">
-      <div id="login-form" class="mb-4">
-        <label for="id">ユーザー名</label>
-        <input type="text" name="id" id="id" class="form-control">
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div id="login-form" class="mb-2">
+        <label for="username">メールアドレス</label>
+        <input type="text" name="username" id="username" class="form-control">
         <label for="password">パスワード</label>
         <input type="password" name="password" id="password" class="form-control">
+      </div>
+      <div class="mb-4 text-center">
+        <input type="checkbox" name="" id="" class="me-2">
+        <label for="">次回から自動的にログインする</label>
       </div>
       <div class="text-center">
         <button type="submit" class="btn btn-secondary">ログイン</button>
       </div>
     </form>
   </section>
+  <div class="text-end">パスワードをお忘れの方はこちら</div>
 </article>
 {% endblock content %}
