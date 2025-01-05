@@ -1,3 +1,4 @@
+from django.utils.timezone import now
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
@@ -46,7 +47,13 @@ class GeneralView(LoginRequiredMixin, TemplateView):
     # コンテキスト
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         user = self.request.user
+        current_year = now().year
+        current_month = now().month
+        years = [current_year - 1, current_year, current_year + 1]
+        months = list(range(1, 13))
+
         award_counts = {
             'gold': AwardCount.objects.filter(employee=user, award_type__name='金').count(),
             'silver': AwardCount.objects.filter(employee=user, award_type__name='銀').count(),
@@ -56,6 +63,10 @@ class GeneralView(LoginRequiredMixin, TemplateView):
             'user_name': user.name,
             'advice': user.advice,
             'award_counts': award_counts,
+            'years': years,
+            'current_year': current_year,
+            'months': months,
+            'current_month': current_month,
         })
         return context
 

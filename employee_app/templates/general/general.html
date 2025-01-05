@@ -16,24 +16,15 @@
   <!-- 表示期間 -->
   <section id="period" class="py-4">
     <h3>表示期間</h3>
-    <select name="" id="" class="form-select">
-      <option value="2022">2022年度</option>
-      <option value="2023">2023年度</option>
-      <option value="2024" selected>2024年度</option>
+    <select name="year" id="year" class="form-select">
+      {% for year in years %}
+      <option value="{{ year }}" {% if year == current_year %}selected{% endif %}>{{ year }}年度</option>
+      {% endfor %}
     </select>
-    <select name="" id="" class="form-select">
-      <option value="1" selected>1月</option>
-      <option value="2">2月</option>
-      <option value="3">3月</option>
-      <option value="4">4月</option>
-      <option value="5">5月</option>
-      <option value="6">6月</option>
-      <option value="7">7月</option>
-      <option value="8">8月</option>
-      <option value="9">9月</option>
-      <option value="10">10月</option>
-      <option value="11">11月</option>
-      <option value="12">12月</option>
+    <select name="month" id="month" class="form-select">
+      {% for month in months %}
+      <option value="{{ month }}" {% if month == current_month %}selected{% endif %}>{{ month }}月</option>
+      {% endfor %}
     </select>
     <button type="submit" class="btn btn-secondary">表示</button>
   </section>
