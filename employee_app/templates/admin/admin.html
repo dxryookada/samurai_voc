@@ -9,17 +9,17 @@
       <!-- CSVファイルデータ取得 -->
       <section id="csv-file" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
         <h3>CSVファイルデータ取得</h3>
-        <form action="" method="post">
+        <form action="{% url 'upload_employee_csv' %}" method="post">
           <fieldset class="my-4">
             <div>工事データ取得</div>
-            <div><input type="file" name="" id="" class="form-control"></div>
+            <div><input type="file" name="employee_csv" id="employee_csv" class="form-control"></div>
             <div><button type="submit" class="btn btn-secondary">取得</button></div>
           </fieldset>
         </form>
-        <form action="" method="post">
+        <form action="{% url 'upload_work_csv' %}" method="post">
           <fieldset>
             <div>従業員データ取得</div>
-            <div><input type="file" name="" id="" class="form-control"></div>
+            <div><input type="file" name="work_csv" id="work_csv" class="form-control"></div>
             <div><button type="submit" class="btn btn-secondary">取得</button></div>
           </fieldset>
         </form>
