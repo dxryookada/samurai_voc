@@ -29,8 +29,7 @@
       <hr>
       <form action="{% url 'complete' %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-          <fieldset class="mb-4">
+        <fieldset class="mb-4">
 
           <section class="mb-4">
             <h6 class="mb-3 fw-bold text-center">性別</h6>
