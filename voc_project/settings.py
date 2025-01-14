@@ -156,3 +156,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',  # Bootstrapのクラスに合わせる場合
 }
+
+# ブラウザを閉じた際にセッションを削除
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

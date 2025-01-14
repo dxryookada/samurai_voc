@@ -60,8 +60,8 @@ class AwardType(models.Model):
     name = models.CharField(verbose_name='表彰種類', max_length=50, unique=True)  # 金・銀・銅など
 
     class Meta:
-        verbose_name = '表彰内容'
-        verbose_name_plural = '表彰一覧'
+        verbose_name = '表彰種類'
+        verbose_name_plural = '表彰種類'
 
     def __str__(self):
         return self.name
