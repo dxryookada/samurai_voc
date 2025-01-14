@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -139,3 +140,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'employee_app.CustomUser'
+
+# ログイン認証
+LOGIN_URL = '/employee/'
+LOGIN_REDIRECT_URL = '/general/'
+LOGOUT_REDIRECT_URL = '/employee/'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# メッセージのレベルを定義
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',  # Bootstrapのクラスに合わせる場合
+}
+
+# ブラウザを閉じた際にセッションを削除
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

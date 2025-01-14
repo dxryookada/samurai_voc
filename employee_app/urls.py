@@ -2,7 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-  path('', views.LoginView.as_view(), name='login'),
+  # --- 従業員共通
+  path('', views.LoginView.as_view(), name='employee'),
+  path('logout/', views.LogoutView.as_view(), name='logout'),
   # --- 一般ユーザー
   path('general/', views.GeneralView.as_view(), name='general'),
   path('update/', views.UpdateView.as_view(), name='update'),
@@ -12,4 +14,7 @@ urlpatterns = [
   path('awards/', views.AwardsView.as_view(), name='awards'),
   path('employees/', views.EmployeesView.as_view(), name='employees'),
   path('detail/', views.DetailView.as_view(), name='detail'),
+  # --- CSVファイル取得
+  path('upload-employee-csv/', views.upload_employee_csv, name='upload_employee_csv'),
+  path('upload-work-csv/', views.upload_work_csv, name='upload_work_csv'),
 ]
