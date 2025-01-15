@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse
 from django.db import transaction
 from .models import CustomUser, ConstructionWorker, WorkArea, AwardCount
-from voc_app.models import AgeGroup, Work
+from voc_app.models import SurveyResponse, AgeGroup, Work
 
 # --- ログインページ --- #
 class LoginView(LoginView):
@@ -27,6 +27,9 @@ class LogoutView(LogoutView):
         messages.success(request, "ログアウトしました")
         response = super().dispatch(request, *args, **kwargs)  # 親クラスの処理を呼び出す
         return response
+    
+# --- データ提供用API --- #
+
 
 # --- 一般従業員ページ（トップ） --- #
 class GeneralView(LoginRequiredMixin, TemplateView):
