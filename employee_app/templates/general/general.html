@@ -1,67 +1,63 @@
-{% extends 'base_employee.html' %}
+{% extends 'base_general.html' %}
 {% load static %}
 {% block title %}従業員ページ{% endblock title %}
 
 {% block content %}
 <article class="p-2 m-auto">
-  <h2>お客様の声アプリ 従業員ページ【山田太郎さん】</h2>
+  <h2>お客様の声アプリ 従業員ページ【{{ user_name }}さん】</h2>
   <p>Voice of the Customer App Employee Page</p>
 
-  <!-- フラッシュメッセージ -->
+  <!-- フラッシュメッセージ
   <section class="p-4 mt-4 text-center border border-danger bg-danger-subtle">
     <p class="fw-bold">従業員情報表示に失敗しました</p>
   </section>
+  -->
+  {% if messages %}
+  <section class="p-4 my-4 text-center border border-success bg-success-subtle">
+    {% for message in messages %}
+      <p class="fw-bold alert alert-{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  </section>
+{% endif %}
 
   <!-- 表示期間 -->
-  <section id="period" class="py-4">
+  <section id="general-period" class="py-4">
     <h3>表示期間</h3>
-    <select name="" id="" class="form-select">
-      <option value="2022">2022年度</option>
-      <option value="2023">2023年度</option>
-      <option value="2024" selected>2024年度</option>
-    </select>
-    <select name="" id="" class="form-select">
-      <option value="1" selected>1月</option>
-      <option value="2">2月</option>
-      <option value="3">3月</option>
-      <option value="4">4月</option>
-      <option value="5">5月</option>
-      <option value="6">6月</option>
-      <option value="7">7月</option>
-      <option value="8">8月</option>
-      <option value="9">9月</option>
-      <option value="10">10月</option>
-      <option value="11">11月</option>
-      <option value="12">12月</option>
-    </select>
+    <form method="get">
+      <select name="year" id="year" class="form-select">
+        {% for year in years %}
+        <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}年度</option>
+        {% endfor %}
+      </select>
+      <select name="month" id="month" class="form-select">
+        {% for month in months %}
+        <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}月</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-secondary">表示</button>
+    </form>
   </section>
 
   <!-- 表彰回数 -->
   <section id="commendation" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
-    <h3 class="mb-4">山田太郎さんの表彰回数（2024年度）</h3>
+    <h3 class="mb-4">{{ user_name }}さんの表彰回数（{{ selected_year }}年度）</h3>
     <ul>
-      <li><span>★</span> 1回</li>
-      <li><span>★</span> 2回</li>
-      <li><span>★</span> 3回</li>
+      <li><span>★</span> {{ award_counts.gold }}回</li>
+      <li><span>★</span> {{ award_counts.silver }}回</li>
+      <li><span>★</span> {{ award_counts.copper }}回</li>
     </ul>
   </section>
 
   <!-- アンケート集計 -->
   <section class="totalling p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
-    <h3 class="mb-4">2024年1月 アンケート集計</h3>
+    <h3 class="mb-4">{{ selected_year }}年{{ selected_month }}月 アンケート集計</h3>
     <fieldset class="mb-4">
-      <input type="radio" name="age" id="" class="form-check-input">
-      <label for="">10代以下</label class="form-check-label">
-      <input type="radio" name="age" id="" class="form-check-input">
-      <label for="">20～30代</label class="form-check-label">
-      <input type="radio" name="age" id="" class="form-check-input">
-      <label for="">40～50代</label class="form-check-label">
-      <input type="radio" name="age" id="" class="form-check-input">
-      <label for="">60～70代</label class="form-check-label">
-      <input type="radio" name="age" id="" class="form-check-input">
-      <label for="">80代以上</label class="form-check-label">
-      <input type="radio" name="age" id=""  class="form-check-input" checked>
-      <label for="">全ての年代</label class="form-check-label">
+      {% for age_group in age_groups %}
+      <input type="radio" name="age" id="age_{{ forloop.counter }}" class="form-check-input" value="{{ age_group.id }}">
+      <label for="age_{{ forloop.counter }}" class="me-2 form-check-label">{{ age_group.name }}</label>
+      {% endfor %}
+      <input type="radio" name="age" id="age_all"  class="form-check-input" value="all" checked>
+      <label for="age_all">全ての年代</label class="form-check-label">
     </fieldset>
     <output>
       <ul>
@@ -91,7 +87,7 @@
   <!-- アンケート上位 -->
   <section id="ranking" class="p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
     <nav class="mb-3">
-      <h3>2024年1月 アンケート TOP3</h3>
+      <h3>{{ selected_year }}年{{ selected_month }}月 アンケート TOP3</h3>
       <p>▼ お名前をクリックするとグラフ表示されます</p>
     </nav>
     <output>

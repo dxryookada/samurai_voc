@@ -55,32 +55,32 @@ class WorkArea(models.Model):
     def __str__(self):
         return self.name
 
-# --- 表彰テーブル --- #
+# --- 表彰種類テーブル --- #
 class AwardType(models.Model):
     name = models.CharField(verbose_name='表彰種類', max_length=50, unique=True)  # 金・銀・銅など
 
     class Meta:
-        verbose_name = '表彰内容'
-        verbose_name_plural = '表彰一覧'
+        verbose_name = '表彰種類'
+        verbose_name_plural = '表彰種類'
 
     def __str__(self):
         return self.name
 
 # --- 表彰回数テーブル --- #
 class AwardCount(models.Model):
-    employee = models.ForeignKey(CustomUser, verbose_name='従業員', on_delete=models.CASCADE)  # 従業員への外部キー
-    award_type = models.ForeignKey(AwardType, verbose_name='表彰種類', on_delete=models.CASCADE)  # 表彰種類への外部キー
+    employee = models.ForeignKey(CustomUser, verbose_name='従業員', on_delete=models.CASCADE)  # 従業員テーブルへの外部キー
+    award_type = models.ForeignKey(AwardType, verbose_name='表彰種類', on_delete=models.CASCADE)  # 表彰種類テーブルへの外部キー
 
     class Meta:
-        verbose_name = '表彰回数情報'
-        verbose_name_plural = '表彰回数一覧'
+        verbose_name = '表彰情報'
+        verbose_name_plural = '表彰一覧'
     
     def __str__(self):
         return f"{self.employee.name} - {self.award_type.name}"
 
 # --- 工事作業員テーブル --- #
 class ConstructionWorker(models.Model):
-    employee = models.ForeignKey(CustomUser, verbose_name='従業員', on_delete=models.CASCADE)  # 従業員への外部キー
+    employee = models.ForeignKey(CustomUser, verbose_name='従業員', on_delete=models.CASCADE)  # 従業員テーブルへの外部キー
     construction = models.ForeignKey('voc_app.Work', verbose_name='工事', on_delete=models.CASCADE)  # 工事テーブルへの外部キー
 
     class Meta:

@@ -1,54 +1,54 @@
 {% extends 'base_admin.html' %}
 {% load static %}
-{% block title %}表彰状贈呈一覧・回数集計{% endblock title %}
+{% block title %}従業員情報詳細・更新ページ{% endblock title %}
 
 {% block content %}
-    <article class="p-2 m-auto">
-      <h2>お客様の声アプリ 従業員情報更新ページ</h2>
-      <p class="mb-4">Voice of the Customer App Employee information update Page</p>
+<article class="p-2 m-auto">
+  <h2>お客様の声アプリ 従業員情報更新ページ</h2>
+  <p class="mb-4">Voice of the Customer App Employee information update Page</p>
 
-      <!-- フラッシュメッセージ -->
-      <section class="p-4 my-4 text-center border border-success bg-success-subtle">
-        <p class="fw-bold">従業員情報を更新しました</p>
-      </section>
-      <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
-        <p class="fw-bold">従業員情報更新に失敗しました</p>
-      </section>
+  <!-- フラッシュメッセージ -->
+  <section class="p-4 my-4 text-center border border-success bg-success-subtle">
+    <p class="fw-bold">従業員情報を更新しました</p>
+  </section>
+  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
+    <p class="fw-bold">従業員情報更新に失敗しました</p>
+  </section>
 
-      <!-- 従業員情報更新 -->
-      <section id="admin-update" class="w-75 m-auto p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
-        <h3 class="mb-4">従業員情報更新</h3>
-        <form action="admin-update.html" method="post">
-          <fieldset class="mb-4">
-            <label for="id" class="bg-primary-subtle form-label">従業員ID</label>
-            <input type="text" name="id" id="id" class="form-control">
-            <label for="user_name" class="bg-primary-subtle form-label">従業員名</label>
-            <input type="text" name="user_name" id="user_name" class="form-control">
-            <label for="area" class="bg-primary-subtle form-label">エリア</label>
-            <select name="area" id="area" class="form-select">
-              <option value="中央">中央</option>
-              <option value="北部">北部</option>
-              <option value="西部">西部</option>
-              <option value="東部">東部</option>
-              <option value="神奈川">神奈川</option>
-            </select>
-            <label for="authority" class="bg-primary-subtle form-label">権限</label>
-            <select name="authority" id="authority" class="form-select">
-              <option value="中央">一般</option>
-              <option value="北部">管理者</option>
-              <option value="西部">一般 + 管理者</option>
-            </select>
-            <label for="email" class="bg-primary-subtle form-label">メールアドレス</label>
-            <input type="email" name="email" id="email" class="form-control">
-            <label for="" class="bg-primary-subtle form-label">パスワード</label>
-            <input type="password" name="" id="" class="form-control">
-            <label for="" class="bg-primary-subtle form-label">パスワード（確認）</label>
-            <input type="password" name="" id="" class="form-control">
-          </fieldset>
-          <div class=" text-center">
-            <button type="submit" class="btn btn-secondary">更新する</button>
-          </div>
-        </form>
-      </section>
-    </article>
+  <!-- 従業員情報詳細・更新 -->
+  <section id="admin-update" class="w-75 m-auto p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
+    <h3 class="mb-4">お客様の声アプリ 従業員情報詳細・更新ページ</h3>
+    <form action="admin-update.html" method="post">
+      <fieldset class="mb-3">
+        <div>従業員名</div><div class="p-2 bg-secondary-subtle">山田太郎</div>
+        <div>メールアドレス</div><div class="p-2 bg-secondary-subtle">aaa@aaa.aaa</div>
+        <label for="area" class="form-label">エリア</label>
+        <select name="area" id="area" class="form-select">
+          <option value="中央">中央</option>
+          <option value="北部">北部</option>
+          <option value="西部">西部</option>
+          <option value="東部">東部</option>
+          <option value="神奈川">神奈川</option>
+        </select>
+      </fieldset>
+      <fieldset class="mb-4">
+        <div>
+          <input type="checkbox" name="" id="" class="me-2 form-check-input">
+          <label for="authority" class="form-label">管理者権限</label>  
+        </div>
+        <div>
+          <input type="checkbox" name="" id="" class="me-2 form-check-input">
+          <label for="authority" class="form-label">ID無効化</label>
+        </div>
+        <div>
+          <input type="checkbox" name="" id="" class="me-2 form-check-input">
+          <label for="authority" class="form-label">ログインロック解除</label>                
+        </div>
+      </fieldset>
+      <div class=" text-center">
+        <button type="submit" class="btn btn-secondary">更新する</button>
+      </div>
+    </form>
+  </section>
+</article>
 {% endblock content %}
