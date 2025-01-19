@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import datetime
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, employee_id, name, email, password=None, **extra_fields):
@@ -89,3 +90,17 @@ class ConstructionWorker(models.Model):
 
     def __str__(self):
         return f"{self.employee.name} - {self.construction.id}"
+
+# --- Voiceテーブル --- #
+class Voice(models.Model):
+    work_day = models.DateTimeField(default=datetime.datetime.now, verbose_name='作業日')
+    construction_number = models.CharField(max_length=200, verbose_name='工事番号')
+    employee = models.ForeignKey(CustomUser, verbose_name='従業員', on_delete=models.CASCADE)  # 従業員テーブルへの外部キー
+    free_comment = models.TextField(max_length=500, verbose_name='自由記述欄')
+
+    class Meta:
+        verbose_name = 'お客様の声'
+        verbose_name_plural = 'お客様の声一覧'
+
+    def __str__(self):
+        return self.construction_number
