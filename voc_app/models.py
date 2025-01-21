@@ -42,9 +42,9 @@ class Work(models.Model):
 
 # --- アンケートテーブル --- #
 class Survey(models.Model):
-    work = models.ForeignKey(Work, verbose_name="工事ID", on_delete=models.CASCADE)
-    gender = models.ForeignKey(Gender, verbose_name="性別", on_delete=models.CASCADE)
-    age_group = models.ForeignKey(AgeGroup, verbose_name="年代", on_delete=models.CASCADE)
+    work = models.ForeignKey(Work, verbose_name="工事ID", on_delete=models.CASCADE) # 工事テーブルへの外部キー
+    gender = models.ForeignKey(Gender, verbose_name="性別", on_delete=models.CASCADE) # 性別テーブルへの外部キー
+    age_group = models.ForeignKey(AgeGroup, verbose_name="年代", on_delete=models.CASCADE) # 年代テーブルへの外部キー
     free_text = models.TextField(verbose_name="自由記入欄", blank=True, null=True)
     free_text_ai_rating = models.IntegerField(verbose_name="自由記入欄AI評価", blank=True, null=True)
     submitted_at = models.DateField(verbose_name="投稿日", auto_now_add=True)
@@ -72,7 +72,7 @@ class Question(models.Model):
     
 # --- 選択肢テーブル --- #
 class Choice(models.Model):
-    question = models.ForeignKey(Question, verbose_name="質問内容", on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, verbose_name="質問内容", on_delete=models.CASCADE) # 質問内容テーブルへの外部キー
     content = models.CharField(verbose_name="選択肢", max_length=255)
     points = models.IntegerField(verbose_name="ポイント", default=0)
     order = models.PositiveBigIntegerField(verbose_name="順序")
@@ -87,9 +87,9 @@ class Choice(models.Model):
     
 # --- アンケート回答テーブル --- #
 class SurveyResponse(models.Model):
-    survey = models.ForeignKey(Survey, verbose_name="アンケート", on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, verbose_name="質問内容", on_delete=models.CASCADE)
-    choice = models.ForeignKey(Choice, verbose_name="選択肢", on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, verbose_name="アンケート", on_delete=models.CASCADE) # アンケートテーブルへの外部キー
+    question = models.ForeignKey(Question, verbose_name="質問内容", on_delete=models.CASCADE) # 質問内容テーブルへの外部キー
+    choice = models.ForeignKey(Choice, verbose_name="選択肢", on_delete=models.CASCADE) # 選択肢テーブルへの外部キー
 
     class Meta:
         verbose_name = 'アンケート回答'

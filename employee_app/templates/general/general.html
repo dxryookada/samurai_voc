@@ -60,6 +60,7 @@
       <label for="age_all">全ての年代</label class="form-check-label">
     </fieldset>
     <output>
+      <!-- 
       <ul>
         <li>お伺いした作業者は、お客様のお申し出内容について確認しましたか？-----</li>
         <li>作業する内容・費用について、事前の説明はわかりやすかったですか？-----</li>
@@ -68,8 +69,8 @@
         <li>態度・言葉遣いは、いかがでしたか？-------------------------------------</li>
         <li>自由記述欄AI評価---------------------------------------------------------</li>
       </ul>
-      <figure>
-      </figure>
+      -->
+      <canvas id="surveyChart" width="400" height="150"></canvas>
     </output>
   </section>
 
@@ -78,9 +79,13 @@
     <h3 class="mb-4">AIアドバイス</h3>
     <details>
       <summary>表示する</summary>
-        作業については、お客様から高評価を頂いているようで
-        す。作業の前のあいさつを笑顔で行うと、より良い印象が与えら
-        れますので、意識してお客様対応をしましょう。
+        <ul>
+        {% for advice in advice_list %}
+          <li>{{ advice|default:"(アドバイスなし)" }}</li>
+        {% empty %}
+          <li>現在、アドバイスがありません。</li>
+        {% endfor %}
+        </ul>
     </details>
   </section>
 

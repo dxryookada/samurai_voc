@@ -1,4 +1,5 @@
 import csv
+from django.http import JsonResponse
 from django.utils.timezone import now
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -8,8 +9,11 @@ from django.views import View
 from django.views.generic import TemplateView
 from django.urls import reverse_lazy, reverse
 from django.db import transaction
+from django.db.models import Avg
+from django.db.models.functions import TruncMonth
+from transformers import GPT2LMHeadModel, AutoTokenizer, pipeline
 from .models import CustomUser, ConstructionWorker, WorkArea, AwardCount
-from voc_app.models import SurveyResponse, AgeGroup, Work
+from voc_app.models import Survey, SurveyResponse, AgeGroup, Work, Question
 
 # --- ログインページ --- #
 class LoginView(LoginView):
@@ -29,7 +33,69 @@ class LogoutView(LogoutView):
         return response
     
 # --- データ提供用API --- #
+class SurveyDataView(View):
+    def get(self, request, *args, **kwargs):
+        # ログイン中の従業員を取得
+        user = request.user
 
+        # ログイン中の従業員が担当した工事を取得
+        works = ConstructionWorker.objects.filter(employee=user).values_list('construction_id', flat=True)
+
+        # 年代フィルタを適用（指定されていない場合は全体データ）
+        age_group = request.GET.get('age_group')
+        survey_filter = {'work_id__in': works}
+        if age_group:
+            survey_filter['age_group_id'] = age_group
+
+        # すべての質問を取得
+        questions = Question.objects.all().order_by('order')
+
+        # 質問ごと、月ごとに平均ポイントを集計
+        question_data = []
+        for question in questions:
+            monthly_data = (
+                SurveyResponse.objects.filter(
+                    survey__in=Survey.objects.filter(**survey_filter),  # 担当した工事に関連するアンケート
+                    question=question,
+                )
+                .annotate(month=TruncMonth('survey__submitted_at'))  # アンケート投稿日を月単位で集計
+                .values('month')
+                .annotate(
+                    average_score=Avg('choice__points')  # 選択肢ポイントの平均値
+                )
+                .order_by('month')
+            )
+
+            # 各月のデータを整理
+            data = {
+                'question': question.content,
+                'months': [item['month'].strftime('%Y-%m') for item in monthly_data if item['month']],
+                'average_scores': [item['average_score'] if item['average_score'] is not None else 0 for item in monthly_data],
+            }
+            question_data.append(data)
+
+        # 自由記入欄AI評価の平均データを取得
+        ai_rating_data = (
+            Survey.objects.filter(**survey_filter)
+            .annotate(month=TruncMonth('submitted_at'))
+            .values('month')
+            .annotate(
+                average_ai_rating=Avg('free_text_ai_rating')
+            )
+            .order_by('month')
+        )
+
+        # 自由記入欄AI評価データを整理
+        ai_rating_summary = {
+            'question': '自由記入欄AI評価',
+            'months': [item['month'].strftime('%Y-%m') for item in ai_rating_data if item['month']],
+            'average_scores': [item['average_ai_rating'] if item['average_ai_rating'] is not None else 0 for item in ai_rating_data],
+        }
+
+        # 質問データに自由記入欄AI評価を追加
+        question_data.append(ai_rating_summary)
+            
+        return JsonResponse({'questions': question_data})
 
 # --- 一般従業員ページ（トップ） --- #
 class GeneralView(LoginRequiredMixin, TemplateView):
@@ -46,6 +112,37 @@ class GeneralView(LoginRequiredMixin, TemplateView):
         years = [int(year) - 2, int(year) - 1, int(year)]
         month = self.request.GET.get('month', now().month)
         months = list(range(1, 13))
+
+        # Hugging Faceモデルを準備（日本語対応の生成モデル）
+        model_name = "rinna/japanese-gpt-1b"
+
+        # 適切なトークナイザを明示的に指定
+        tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
+        model = GPT2LMHeadModel.from_pretrained(model_name)
+
+        # パイプラインの設定
+        generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
+
+        # ユーザーに関連するアンケートを取得
+        surveys = Survey.objects.filter(
+            work__constructionworker__employee=user,  # リレーションを辿って従業員に関連付け
+            submitted_at__year=year
+        ).distinct()  # 重複排除
+
+        # アンケート自由記入欄から具体的なアドバイスを生成
+        advice_list = []
+        for survey in surveys:
+            if survey.free_text:
+                # 生成のプロンプトを定義
+                prompt = (
+                    f"以下の自由記入欄の内容を基に、従業員に向けた具体的なアドバイスを作成してください。\n"
+                    f"自由記入欄: 「{survey.free_text}」\n"
+                    f"アドバイス: "
+                )
+                # AIモデルでアドバイス文を生成
+                generated_text = generator(prompt, max_length=150, num_return_sequences=3, do_sample=True, temperature=0.7)
+                advice = generated_text[0]['generated_text'].replace(prompt, "").strip()
+                advice_list.append(advice)
 
         # 表彰 
         award_counts = {
@@ -66,7 +163,8 @@ class GeneralView(LoginRequiredMixin, TemplateView):
             'years': years,
             'selected_month': int(month),
             'months': months,
-            'age_groups': age_groups, 
+            'age_groups': age_groups,
+            'advice_list': advice_list,  # 生成された具体的なアドバイス文リスト
         })
         return context
 

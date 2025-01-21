@@ -105,7 +105,7 @@ class SurveyFormView(FormView):
                     question = Question.objects.get(order=question_order)
                     choice = Choice.objects.get(id=value.id)  # 選択肢を取得
 
-                    # SurveyResponseに保存
+                    # SurveyResponseモデルに保存
                     SurveyResponse.objects.create(
                         survey=survey,
                         question=question,

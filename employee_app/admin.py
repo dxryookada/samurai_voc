@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import CustomUser, WorkArea, AwardType, AwardCount, ConstructionWorker
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'is_staff')
+    list_display = ('id', 'name', 'employee_id', 'work_area', 'is_staff', 'is_active', 'login_lock_until')
 class WorkAreaAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 

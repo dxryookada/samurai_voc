@@ -121,11 +121,15 @@ textarea {
 #commendation > ul li:nth-of-type(3) > span {
   color: saddlebrown;
 }
-
+/*
 .totalling > output {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 60% 40%;
+}
+  */
+.totalling > output {
+  width: 100%;
 }
 .totalling > output > figure {
   background-color: lightgray;

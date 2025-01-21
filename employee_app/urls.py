@@ -7,6 +7,7 @@ urlpatterns = [
   path('logout/', views.LogoutView.as_view(), name='logout'),
   # --- 一般ユーザー
   path('general/', views.GeneralView.as_view(), name='general'),
+  path('general/api/survey-data/', views.SurveyDataView.as_view(), name='survey_data'),
   path('update/', views.UpdateView.as_view(), name='update'),
   # --- 管理者
   path('admin/', views.AdminView.as_view(), name='admin'),
