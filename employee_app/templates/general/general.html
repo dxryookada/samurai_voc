@@ -70,7 +70,7 @@
         <li>自由記述欄AI評価---------------------------------------------------------</li>
       </ul>
       -->
-      <canvas id="surveyChart" width="400" height="150"></canvas>
+      <canvas id="survey-chart" width="400" height="150"></canvas>
     </output>
   </section>
 
@@ -97,31 +97,20 @@
     </nav>
     <output>
       <ul>
+        {% for top3_employee in top3_employees_data %}
         <li>
           <span>★</span>
-          <span>No.1</span>
-          <span>東京</span>
-          <span>太郎さん</span>
+          <span>No.{{ forloop.counter}}</span>
+          <span>{{ top3_employee.name }} さん</span>
         </li>
-        <li>
-          <span>★</span>
-          <span>No.2</span>
-          <span>埼玉</span>
-          <span>次郎さん</span>
-        </li>
-        <li>
-          <span>★</span>
-          <span>No.3</span>
-          <span>埼玉</span>
-          <span>三郎さん</span>
-        </li>
+        {% endfor %}
       </ul>
-      <div>
+      <hr>
+      <div class="mt-2" >
         <span>★</span>
         <span>No.1</span>
-        <span>東京</span>
-        <span>太郎さん</span>
-        <figure></figure>
+        <span>{{ top_employee_name }}</span>
+        <canvas id="survey-top1-chart"width="400" height="150"></canvas>
       </div>
     </output>
   </section>
