@@ -7,20 +7,18 @@
   <h2>お客様の声アプリ</h2>
   <p class="mb-4">Voice of the Customer App</p>
 
-  <!-- フラッシュメッセージ
-  <section class="p-4 my-4 text-center border border-success bg-success-subtle">
-    <p class="fw-bold">ログアウトしました</p>
-  </section>
-  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
-    <p class="fw-bold">ユーザー名またはパスワードに誤りがあります</p>
-  </section>
-  -->
-  {% if messages %}
-  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
-    {% for message in messages %}
-    <p class="fw-bold alert alert-{{ message.tags }}">{{ message }}</p>
+  {% for field, errors in form.errors.items %}
+  <div class="fw-bold alert alert-danger" role="alert">
+    {% for error in errors %}
+    <p>{{ error }}</p>
     {% endfor %}
-  </section>
+  </div>
+  {% endfor %}
+
+  {% if messages %}
+  {% for message in messages %}
+  <p class="fw-bold alert alert-{{ message.tags }}">{{ message }}</p>
+  {% endfor %}
   {% endif %}
 
   <!-- ログイン -->
@@ -35,14 +33,14 @@
         <input type="password" name="password" id="password" class="form-control">
       </div>
       <div class="mb-4 text-center">
-        <input type="checkbox" name="" id="" class="me-2">
-        <label for="">次回から自動的にログインする</label>
+        <input type="checkbox" name="remember_me" id="remember_me" class="me-2">
+        <label for="remember_me">次回から自動的にログインする</label>
       </div>
       <div class="text-center">
         <button type="submit" class="btn btn-secondary">ログイン</button>
       </div>
     </form>
   </section>
-  <div class="text-end">パスワードをお忘れの方はこちら</div>
+  <div class="text-end"><a href="{% url 'password_reset' %}">パスワードをお忘れの方はこちら</a></div>
 </article>
 {% endblock content %}

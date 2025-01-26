@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.utils.timezone import now
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
@@ -25,6 +26,20 @@ class LoginView(LoginView):
         if self.request.user.is_staff:
             return reverse_lazy('admin')
         return reverse_lazy('general')
+    
+    def form_valid(self, form):
+        # フォームが有効な場合
+        remember_me = self.request.POST.get("remember_me")  # チェックボックスの値を取得
+        if remember_me:
+            # 「次回から自動的にログインする」がチェックされている場合
+            self.request.session.set_expiry(3600 * 24 * 30)  # 30日間セッションを保持
+        else:
+            # チェックされていない場合（デフォルト: ブラウザが閉じられるとセッション終了）
+            self.request.session.set_expiry(0)
+
+        # ユーザーをログイン
+        login(self.request, form.get_user())
+        return super().form_valid(form)
 
 # --- ログアウト動作(POSTメソッドのみ可能) --- #
 class LogoutView(LogoutView):
@@ -119,71 +134,6 @@ class SurveyDataView(View):
         question_data = get_monthly_survey_data(employee=user, filters=filters)
 
         return JsonResponse({'questions': question_data})
-'''
-class SurveyDataView(View):
-    def get(self, request, *args, **kwargs):
-        # ログイン中の従業員を取得
-        user = request.user
-
-        # ログイン中の従業員が担当した工事を取得
-        works = ConstructionWorker.objects.filter(employee=user).values_list('construction_id', flat=True)
-
-        # 年代フィルタを適用（指定されていない場合は全体データ）
-        age_group = request.GET.get('age_group')
-        survey_filter = {'work_id__in': works}
-        if age_group:
-            survey_filter['age_group_id'] = age_group
-
-        # すべての質問を取得
-        questions = Question.objects.all().order_by('order')
-
-        # 質問ごと、月ごとに平均ポイントを集計
-        question_data = []
-        for question in questions:
-            monthly_data = (
-                SurveyResponse.objects.filter(
-                    survey__in=Survey.objects.filter(**survey_filter),  # 担当した工事に関連するアンケート
-                    question=question,
-                )
-                .annotate(month=TruncMonth('survey__submitted_at'))  # アンケート投稿日を月単位で集計
-                .values('month')
-                .annotate(
-                    average_score=Avg('choice__points')  # 選択肢ポイントの平均値
-                )
-                .order_by('month')
-            )
-
-            # 各月のデータを整理
-            data = {
-                'question': question.content,
-                'months': [item['month'].strftime('%Y-%m') for item in monthly_data if item['month']],
-                'average_scores': [item['average_score'] if item['average_score'] is not None else 0 for item in monthly_data],
-            }
-            question_data.append(data)
-
-        # 自由記入欄AI評価の平均データを取得
-        ai_rating_data = (
-            Survey.objects.filter(**survey_filter)
-            .annotate(month=TruncMonth('submitted_at'))
-            .values('month')
-            .annotate(
-                average_ai_rating=Avg('free_text_ai_rating')
-            )
-            .order_by('month')
-        )
-
-        # 自由記入欄AI評価データを整理
-        ai_rating_summary = {
-            'question': '自由記入欄AI評価',
-            'months': [item['month'].strftime('%Y-%m') for item in ai_rating_data if item['month']],
-            'average_scores': [item['average_ai_rating'] if item['average_ai_rating'] is not None else 0 for item in ai_rating_data],
-        }
-
-        # 質問データに自由記入欄AI評価を追加
-        question_data.append(ai_rating_summary)
-            
-        return JsonResponse({'questions': question_data})
-'''
 
 # --- 一般従業員ページ（トップ） --- #
 class GeneralView(LoginRequiredMixin, TemplateView):
@@ -291,7 +241,7 @@ class GeneralView(LoginRequiredMixin, TemplateView):
                 'monthly_data': monthly_data,
             })
 
-        # FetchAPIからのアクセスか、通常のアクセスかどうか
+        # FetchAPIからのアクセスか、通常のアクセスかどうか判定
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             # アンケートデータを取得（get_monthly_survey_data自作関数再利用）
             question_data = get_monthly_survey_data(employee=top_employee['employee_id'])
@@ -312,7 +262,7 @@ class GeneralView(LoginRequiredMixin, TemplateView):
                 'top3_employees_data': top3_employees_data,
             })
             return context
-
+        # --- 月別アンケートTOP3 ここまで --- #
 
 # --- 一般従業員ページ（マイページ・データ更新） --- #
 class UpdateView(LoginRequiredMixin, View):
