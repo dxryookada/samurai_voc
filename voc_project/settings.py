@@ -173,6 +173,10 @@ AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',  # Axes 用の認証バックエンド
     'django.contrib.auth.backends.ModelBackend',  # Django の標準認証バックエンド
 ]
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '2661fe38718f83'
+EMAIL_HOST_PASSWORD = '85e78962f4dcc0'
+EMAIL_PORT = '2525'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # 開発用
 # EMAIL_HOST = 'あなたのメールサーバー'  # 実際のメールサーバーの設定
