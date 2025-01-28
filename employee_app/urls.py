@@ -12,7 +12,10 @@ urlpatterns = [
   path('admin/', views.AdminView.as_view(), name='admin'),
   path('voices/', views.VoicesView.as_view(), name='voices'),
   path('awards/', views.AwardsView.as_view(), name='awards'),
-  path('employees/', views.EmployeesView.as_view(), name='employees'),
+  # path('employees/', views.EmployeesView.as_view(), name='employees'),
+  path('employees/', views.EmployeesListView.as_view(), name='employees'),
+  path('employees/new/', views.EmployeesCreateView.as_view(), name='employees_new'),
+  path('employees/edit/<int:pk>', views.EmployeesUpdateView.as_view(), name='employees_edit'),
   path('detail/', views.DetailView.as_view(), name='detail'),
   # --- CSVファイル取得
   path('upload-employee-csv/', views.upload_employee_csv, name='upload_employee_csv'),

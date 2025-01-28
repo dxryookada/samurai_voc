@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, WorkArea, AwardType, AwardCount, ConstructionWorker, Voice
+from .models import CustomUser, WorkArea, AwardType, AwardCount, ConstructionWorker
 
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'is_staff')
@@ -15,12 +15,9 @@ class AwardCountAdmin(admin.ModelAdmin):
 class ConstructionWorkerAdmin(admin.ModelAdmin):
     list_display = ('id', 'employee', 'construction')
 
-class VoiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'work_day', 'construction_number', 'employee', 'free_comment')
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(WorkArea, WorkAreaAdmin)
 admin.site.register(AwardType, AwardTypeAdmin)
 admin.site.register(AwardCount, AwardCountAdmin)
 admin.site.register(ConstructionWorker, ConstructionWorkerAdmin)
-admin.site.register(Voice, VoiceAdmin)

@@ -10,7 +10,24 @@
       <section class="p-4 mb-4 text-center border border-danger bg-danger-subtle">
         <p class="fw-bold">お客様の声一覧表示に失敗しました</p>
       </section>
-
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="table-secondary">
+              <tr>
+                  <th>作業日</th>
+                  <th>工事ID</th>
+                  <th>作業者</th>
+                  <th>自由記述内容</th>
+              </tr>
+          </thead>
+          {% for survey in object_list %}
+          <tr>
+            <td>{{ survey.submitted_at }}</td>
+            <td>{{ survey.work }}</td>
+            <td>{{ survey.work }}</td>
+            <td>{{ survey.free_text }} </td>
+          </tr>
+          {% endfor %}
+        </table>
       <!-- お客様の声一覧 -->
       <section id="voice-list" class="totalling p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
         <div>作業日</div><div>工事番号</div><div>作業者</div><div>自由記述内容</div>

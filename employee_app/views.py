@@ -5,11 +5,12 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.db import transaction
 from .models import CustomUser, ConstructionWorker, WorkArea, AwardCount
-from voc_app.models import SurveyResponse, AgeGroup, Work
+from voc_app.models import SurveyResponse, AgeGroup, Work, Survey
 
 # --- ログインページ --- #
 class LoginView(LoginView):
@@ -197,6 +198,22 @@ class AwardsView(LoginRequiredMixin, TemplateView):
 # --- 従業員一覧ページ（管理者） --- #
 class EmployeesView(LoginRequiredMixin, TemplateView):
     template_name = "admin/employees.html"
+
+class EmployeesListView(ListView):
+    template_name = "admin/employees.html"
+    model = CustomUser
+
+class EmployeesCreateView(CreateView):
+    template_name = "admin/employees_form.html"
+    model = CustomUser
+    # fields = ['name', 'work_area']
+    fields = '__all__'
+
+class EmployeesUpdateView(UpdateView):
+    model = CustomUser
+    fields = '__all__'
+    template_name = "admin/employees_update_form.html"
+    # template_name_suffix = '_update_form'
 
 # --- 従業員詳細ページ（管理者） --- #
 class DetailView(LoginRequiredMixin, TemplateView):
