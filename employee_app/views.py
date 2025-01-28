@@ -13,7 +13,7 @@ from django.urls import reverse_lazy, reverse
 from django.db import transaction
 from django.db.models import Avg, Sum, F
 from django.db.models.functions import TruncMonth
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from transformers import GPT2LMHeadModel, AutoTokenizer, pipeline
 from .models import CustomUser, ConstructionWorker, WorkArea, AwardCount
 from voc_app.models import Survey, SurveyResponse, AgeGroup, Work, Question
 
@@ -163,11 +163,11 @@ class GeneralView(LoginRequiredMixin, TemplateView):
 
         # --- AIアドバイス ここから --- #
         # Hugging Faceモデルを準備（日本語対応の生成モデル）
-        model_name = "cyberagent/open-calm-small"
+        model_name = "rinna/japanese-gpt-1b"
 
         # 適切なトークナイザを明示的に指定
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_pretrained(model_name)
+        model = GPT2LMHeadModel.from_pretrained(model_name)
 
         # パイプラインの設定
         generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
