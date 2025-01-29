@@ -191,6 +191,10 @@ def upload_work_csv(request):
 class VoicesView(LoginRequiredMixin, TemplateView):
     template_name = "admin/voices.html"
 
+class SurveyView(ListView):
+    template_name = "admin/voices.html"
+    model = Survey
+
 # --- 表彰状贈呈一覧ページ（管理者） --- #
 class AwardsView(LoginRequiredMixin, TemplateView):
     template_name = "admin/awards.html"

@@ -10,7 +10,8 @@ urlpatterns = [
   path('update/', views.UpdateView.as_view(), name='update'),
   # --- 管理者
   path('admin/', views.AdminView.as_view(), name='admin'),
-  path('voices/', views.VoicesView.as_view(), name='voices'),
+  # path('voices/', views.VoicesView.as_view(), name='voices'),
+  path('voices/', views.SurveyView.as_view(), name='voices'),
   path('awards/', views.AwardsView.as_view(), name='awards'),
   # path('employees/', views.EmployeesView.as_view(), name='employees'),
   path('employees/', views.EmployeesListView.as_view(), name='employees'),
