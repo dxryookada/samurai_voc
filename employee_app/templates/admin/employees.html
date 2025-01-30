@@ -27,7 +27,12 @@
           <td>{{ customuser.employee_id }}</td>
           <td>{{ customuser.name }}</td>
           <td>{{ customuser.work_area }}</td>
-          <td>{{ customuser.is_staff }}</td>
+          <td>
+            {% if customuser.is_staff %}
+                <p>管理者</p>
+            {% else %}
+                <p>一般</p>
+            {% endif %}
           <td>{{ customuser.email }}</td>
           <td>
             <button class="btn btn-primary" onclick="location.href='{% url 'employees_edit' pk=customuser.pk %}'">編集</button>
