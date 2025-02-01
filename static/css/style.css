@@ -121,20 +121,21 @@ textarea {
 #commendation > ul li:nth-of-type(3) > span {
   color: saddlebrown;
 }
-
+/*
 .totalling > output {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 60% 40%;
 }
-.totalling > output > figure {
-  background-color: lightgray;
+  */
+.totalling > output {
+  width: 100%;
 }
-
 #ranking > output {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 60% 40%;
+  width: 100%;
+}
+#ranking > output > div {
+  height: 150px;
 }
 #ranking > output > ul {
   font-size: clamp(16px, 2vw, 24px);
@@ -153,10 +154,6 @@ textarea {
 }
 #ranking > output > div > span:nth-of-type(1) {
   color: gold;
-}
-#ranking > output > div > figure {
-  height: 200px;
-  background-color: lightgray;
 }
 
 /* --- マイページ --- */

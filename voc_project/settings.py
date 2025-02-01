@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'voc_app',
     'employee_app',
+    'axes', 
 ]
 
 MIDDLEWARE = [
+    'axes.middleware.AxesMiddleware',  # 必ず AuthenticationMiddleware より前に追加
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -159,3 +161,31 @@ MESSAGE_TAGS = {
 
 # ブラウザを閉じた際にセッションを削除
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Axes 設定
+AXES_ENABLED = True  # Axes を有効化
+AXES_FAILURE_LIMIT = 5  # 最大失敗回数
+AXES_COOLOFF_TIME = 1  # ロック解除までの時間 (時間単位)
+AXES_LOCKOUT_CALLABLE = None  # カスタムロジックを使用しない場合は None
+AXES_RESET_ON_SUCCESS = True  # 成功ログイン時に失敗カウントをリセット
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',  # Axes 用の認証バックエンド
+    'django.contrib.auth.backends.ModelBackend',  # Django の標準認証バックエンド
+]
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '2661fe38718f83'
+EMAIL_HOST_PASSWORD = '85e78962f4dcc0'
+EMAIL_PORT = '2525'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # 開発用
+# EMAIL_HOST = 'あなたのメールサーバー'  # 実際のメールサーバーの設定
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'あなたのメールアドレス'
+# EMAIL_HOST_PASSWORD = 'あなたのメールパスワード'
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '2661fe38718f83'
+EMAIL_HOST_PASSWORD = '85e78962f4dcc0'
+EMAIL_PORT = '2525'
