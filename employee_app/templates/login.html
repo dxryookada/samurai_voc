@@ -1,4 +1,4 @@
-{% extends 'base_employee.html' %}
+{% extends 'base_login.html' %}
 {% load static %}
 {% block title %}ログイン{% endblock title %}
 
@@ -6,20 +6,41 @@
 <article class="w-50 p-2 m-auto">
   <h2>お客様の声アプリ</h2>
   <p class="mb-4">Voice of the Customer App</p>
+
+  {% for field, errors in form.errors.items %}
+  <div class="fw-bold alert alert-danger" role="alert">
+    {% for error in errors %}
+    <p>{{ error }}</p>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  {% if messages %}
+  {% for message in messages %}
+  <p class="fw-bold alert alert-{{ message.tags }}">{{ message }}</p>
+  {% endfor %}
+  {% endif %}
+
   <!-- ログイン -->
-  <section class="p-4 border border-secondary shadow bg-body-tertiary rounded">
+  <section class="p-4 mb-2 border border-secondary shadow bg-body-tertiary rounded">
     <h3 class="mb-3">ログイン</h3>
-    <form action="{ url 'general' }" method="get">
-      <div id="login-form" class="mb-4">
-        <label for="id">ユーザー名</label>
-        <input type="text" name="id" id="id" class="form-control">
+    <form method="post" action="{% url 'employee' %}">
+      {% csrf_token %}
+      <div id="login-form" class="mb-2">
+        <label for="username">メールアドレス</label>
+        <input type="text" name="username" id="username" class="form-control">
         <label for="password">パスワード</label>
         <input type="password" name="password" id="password" class="form-control">
+      </div>
+      <div class="mb-4 text-center">
+        <input type="checkbox" name="remember_me" id="remember_me" class="me-2">
+        <label for="remember_me">次回から自動的にログインする</label>
       </div>
       <div class="text-center">
         <button type="submit" class="btn btn-secondary">ログイン</button>
       </div>
     </form>
   </section>
+  <div class="text-end"><a href="{% url 'password_reset' %}">パスワードをお忘れの方はこちら</a></div>
 </article>
 {% endblock content %}

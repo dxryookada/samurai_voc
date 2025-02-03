@@ -67,13 +67,25 @@ header {
 header > nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 header > nav > ul {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 header a {
   color: white;
+}
+header form {
+  display: inline;
+}
+header button {
+  text-decoration: none !important;
+  color: white !important;
+}
+header button:hover {
+  text-decoration: underline !important;
 }
 
 /* --- アンケートページ --- */
@@ -82,9 +94,15 @@ textarea {
 }
 
 /* --- 一般ユーザーページ --- */
-#period {
+#general-period {
   display: grid;
-  grid-template-columns: 20% repeat(2, 1fr);
+  grid-template-columns: 20% 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+#general-period > form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 20%;
   align-items: center;
   gap: 1rem;
 }
@@ -103,20 +121,21 @@ textarea {
 #commendation > ul li:nth-of-type(3) > span {
   color: saddlebrown;
 }
-
+/*
 .totalling > output {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 60% 40%;
 }
-.totalling > output > figure {
-  background-color: lightgray;
+  */
+.totalling > output {
+  width: 100%;
 }
-
 #ranking > output {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 60% 40%;
+  width: 100%;
+}
+#ranking > output > div {
+  height: 150px;
 }
 #ranking > output > ul {
   font-size: clamp(16px, 2vw, 24px);
@@ -136,19 +155,15 @@ textarea {
 #ranking > output > div > span:nth-of-type(1) {
   color: gold;
 }
-#ranking > output > div > figure {
-  height: 200px;
-  background-color: lightgray;
-}
 
 /* --- マイページ --- */
-#admin-update fieldset, #update fieldset {
+#update fieldset {
   display: grid;
   grid-template-columns: 30% 1fr;
   gap: 1rem;
   align-items: center;
 }
-#admin-update fieldset > label, #update fieldset > label {
+#update fieldset > label {
   font-weight: bold;
   padding: 0.5rem;
 }
@@ -159,6 +174,13 @@ textarea {
   grid-template-columns: 20% 1fr 10%;
   gap: 1rem;
   align-items: center;
+}
+
+#admin-period {
+  display: grid;
+  grid-template-columns: 20% repeat(2, 1fr);
+  align-items: center;
+  gap: 1rem;
 }
 
 #employee-name {
@@ -188,28 +210,50 @@ textarea {
 }
 
 /* --- 管理者ページ 各一覧 --- */
-#employee-list {
+#awards-list {
   display: grid;
-  grid-template-columns: 10% repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
   gap: 1px;
 }
-#employee-list > div {
+#awards-list > div {
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+  height: 100%; /* 高さを確保 */
   text-align: center;
   background-color: gainsboro;
   padding: 0.5rem;
 }
-#employee-list > div:nth-of-type(-n+7) {
+#awards-list > div:nth-of-type(-n+4) {
   background-color: gray;
   color: white;
   font-weight: bold;
+}
+#awards-list .star1 {
+  color: gold;
+}
+#awards-list .star2 {
+  color: silver;
+}
+#awards-list .star3 {
+  color: saddlebrown;
+}
+#awards-list .grid-row {
+  grid-row: span 3;
 }
 
 #voice-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  align-items: center;
   gap: 1px;
 }
 #voice-list > div {
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+  height: 100%; /* 高さを確保 */
   text-align: center;
   background-color: gainsboro;
   padding: 0.5rem;
@@ -220,20 +264,34 @@ textarea {
   font-weight: bold;
 }
 
-#awards-list {
+#employee-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 10% repeat(6, 1fr);
+  align-items: center;
   gap: 1px;
 }
-#awards-list > div {
+#employee-list > div {
+  display: flex;
+  justify-content: center; /* 水平方向の中央揃え */
+  align-items: center; /* 垂直方向の中央揃え */
+  height: 100%; /* 高さを確保 */
   text-align: center;
   background-color: gainsboro;
   padding: 0.5rem;
 }
-#awards-list > div:nth-of-type(-n+4) {
+#employee-list > div:nth-of-type(-n+7) {
   background-color: gray;
   color: white;
   font-weight: bold;
+}
+
+/* --- 従業員情報詳細・更新ページ --- */
+#admin-update fieldset:nth-of-type(1) {
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  align-items: center;
+  gap: 1rem;
+  align-items: center;
 }
 
 /* --- フッター --- */

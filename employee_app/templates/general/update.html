@@ -1,42 +1,51 @@
-{% extends 'base_employee.html' %}
+{% extends 'base_general.html' %}
 {% load static %}
-{% block title %}従業員情報更新ページ{% endblock title %}
+{% block title %}マイページ{% endblock title %}
 
 {% block content %}
 <article class="p-2 m-auto">
-  <h2>お客様の声アプリ 従業員情報更新ページ</h2>
-  <p class="mb-4">Voice of the Customer App Employee information update Page</p>
+  <h2>お客様の声アプリ マイページ</h2>
+  <p class="mb-4">Voice of the Customer App My Page</p>
 
-  <!-- フラッシュメッセージ -->
+  <!-- フラッシュメッセージ
   <section class="p-4 my-4 text-center border border-success bg-success-subtle">
     <p class="fw-bold">従業員情報を更新しました</p>
   </section>
   <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
     <p class="fw-bold">従業員情報更新に失敗しました</p>
   </section>
+  -->
+{% if messages %}
+  <section class="p-4 my-4 text-center border border-danger bg-danger-subtle">
+    {% for message in messages %}
+      <p class="fw-bold alert alert-{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  </section>
+{% endif %}
 
   <!-- 従業員情報更新 -->
   <section id="update" class="w-75 m-auto p-4 mb-4 border border-secondary shadow bg-body-tertiary rounded">
     <h3 class="mb-4">従業員情報更新</h3>
-    <form action="update.html" method="post">
+    <form action="{% url 'update' %}" method="post">
+      {% csrf_token %}
       <fieldset class="mb-4">
-        <label for="id" class="bg-primary-subtle form-label">従業員ID</label>
-        <input type="text" name="id" id="id" class="form-control">
-        <label for="user_name" class="bg-primary-subtle form-label">従業員名</label>
-        <input type="text" name="user_name" id="user_name" class="form-control">
-        <label for="area" class="bg-primary-subtle form-label">エリア</label>
+        <label for="id" class="form-label">従業員ID</label>
+        <input type="text" name="id" id="id" class="form-control" value="{{ employee_id }}">
+        <label for="user_name" class="form-label">従業員名</label>
+        <input type="text" name="user_name" id="user_name" class="form-control" value="{{ user_name }}">
+        <label for="area" class="form-label">エリア</label>
         <select name="area" id="area" class="form-select">
-          <option value="中央">中央</option>
-          <option value="北部">北部</option>
-          <option value="西部">西部</option>
-          <option value="東部">東部</option>
-          <option value="神奈川">神奈川</option>
+          <option value="中央" {% if work_area == "中央" %}selected{% endif %}>中央</option>
+          <option value="北部" {% if work_area == "北部" %}selected{% endif %}>北部</option>
+          <option value="西部" {% if work_area == "西部" %}selected{% endif %}>西部</option>
+          <option value="東部" {% if work_area == "東部" %}selected{% endif %}>東部</option>
+          <option value="神奈川" {% if work_area == "神奈川" %}selected{% endif %}>神奈川</option>
         </select>
-        <label for="email" class="bg-primary-subtle form-label">メールアドレス</label>
-        <input type="email" name="email" id="email" class="form-control">
-        <label for="" class="bg-primary-subtle form-label">パスワード</label>
+        <label for="email" class="form-label">メールアドレス</label>
+        <input type="email" name="email" id="email" class="form-control" value="{{ email }}">
+        <label for="" class="form-label">パスワード</label>
         <input type="password" name="" id="" class="form-control">
-        <label for="" class="bg-primary-subtle form-label">パスワード（確認）</label>
+        <label for="" class="form-label">パスワード（確認）</label>
         <input type="password" name="" id="" class="form-control">
       </fieldset>
       <div class=" text-center">
